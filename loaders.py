@@ -3,7 +3,7 @@ import torchvision.datasets as datasets
 from torchvision import transforms
 
 batch_size = 128
-img_size = 224
+img_size = 112
 train_transform = transforms.Compose([
     transforms.Resize(img_size),
     transforms.RandomHorizontalFlip(),
