@@ -35,12 +35,12 @@ def train_one_epoch(model, criterion, optimizer, train_loader):
         batch_wrong = ((predicts != targets).sum())
         count_correct += batch_correct
         count_wrong += batch_wrong
-        log_file.write(f"Batch {idx}, correct {batch_correct}, wrong {batch_wrong}, loss {loss}")
+        log_file.write(f"Batch {idx}, correct {batch_correct}, wrong {batch_wrong}, loss {loss}\n")
         log_file.flush()
     avg_loss /= len(train_loader)
     avg_correct = count_correct / (count_wrong + count_correct)
-    log_file.write(f"train loss: {avg_loss}")
-    log_file.write(f"train acc: {avg_correct}")
+    log_file.write(f"train loss: {avg_loss}\n")
+    log_file.write(f"train acc: {avg_correct}\n")
 
 
 def test(model, criterion, test_loader):
@@ -59,8 +59,8 @@ def test(model, criterion, test_loader):
             wrong += ((predicts == targets).sum())
     avg_loss = loss/len(test_loader)
     avg_correct = correct / (wrong+correct)
-    log_file.write(f"test loss: {avg_loss}")
-    log_file.write(f"test acc: {avg_correct}")
+    log_file.write(f"test loss: {avg_loss}\n")
+    log_file.write(f"test acc: {avg_correct}\n")
 
 
 if __name__ == '__main__':
@@ -82,6 +82,6 @@ if __name__ == '__main__':
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, eta_min=2e-4, T_max=60)
     criterion = nn.CrossEntropyLoss()
     for id in range(60):
-        log_file.write(f"Epoch {id}")
+        log_file.write(f"Epoch {id}\n")
         train_one_epoch(model, criterion, optimizer, get_train_loader(args.dataset))
         test(model, criterion, get_test_loader(args.dataset))
