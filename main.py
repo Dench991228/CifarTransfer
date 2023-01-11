@@ -91,4 +91,4 @@ if __name__ == '__main__':
     for id in range(60):
         log_file.write(f"Epoch {id}\n")
         train_one_epoch(model, criterion, optimizer, get_train_loader(args.dataset))
-        test(model, criterion, get_test_loader(args.dataset))
+        test(model, criterion, get_test_loader(args.dataset), id)
