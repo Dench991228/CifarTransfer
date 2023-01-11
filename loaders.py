@@ -2,7 +2,7 @@ import torch.utils.data
 import torchvision.datasets as datasets
 from torchvision import transforms
 
-batch_size = 32
+batch_size = 256
 img_size = 224
 train_transform = transforms.Compose([
     transforms.Resize(img_size),
@@ -44,5 +44,5 @@ def get_test_set(name):
 
 def get_test_loader(name):
     dataset = get_test_set(name)
-    loader = torch.utils.data.DataLoader(dataset, batch_size=100, shuffle=False, num_workers=4)
+    loader = torch.utils.data.DataLoader(dataset, batch_size=512, shuffle=False, num_workers=4)
     return loader
