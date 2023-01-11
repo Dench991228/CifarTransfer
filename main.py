@@ -1,3 +1,5 @@
+import datetime
+
 from pytorch_pretrained_vit import ViT
 import torch
 import torch.nn as nn
@@ -52,7 +54,7 @@ def test(model, criterion, test_loader, current_epoch):
         for idx, (images, targets) in enumerate(test_loader):
             images, targets = images.to(device), targets.to(device)
             outputs = model(images)
-            batch_loss = criterion(outputs)
+            batch_loss = criterion(outputs, targets)
             loss += batch_loss
             predicts = torch.argmax(outputs, dim=1)
             correct += ((predicts == targets).sum())
@@ -89,6 +91,6 @@ if __name__ == '__main__':
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, eta_min=2e-4, T_max=60)
     criterion = nn.CrossEntropyLoss()
     for id in range(60):
-        log_file.write(f"Epoch {id}\n")
+        log_file.write(f"Epoch {id} at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         train_one_epoch(model, criterion, optimizer, get_train_loader(args.dataset))
         test(model, criterion, get_test_loader(args.dataset), id)
