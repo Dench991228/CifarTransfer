@@ -31,8 +31,11 @@ def train_one_epoch(model, criterion, optimizer, train_loader):
         optimizer.step()
         # 计算正确率
         predicts = torch.argmax(outputs, dim=1, keepdim=False)
-        count_correct += ((predicts == targets).sum())
-        count_wrong += ((predicts != targets).sum())
+        batch_correct = ((predicts == targets).sum())
+        batch_wrong = ((predicts != targets).sum())
+        count_correct += batch_correct
+        count_wrong += batch_wrong
+        print(f"Batch {idx}, correct {batch_correct}, wrong {count_wrong}, loss {loss}")
     avg_loss /= len(train_loader)
     avg_correct = count_correct / (count_wrong + count_correct)
     print(f"train loss: {avg_loss}")
