@@ -20,7 +20,6 @@ def train_one_epoch(model, criterion, optimizer, train_loader):
     for idx, (images, targets) in enumerate(train_loader):
         images, targets = images.to(device), targets.to(device)
         # 得到图片的分类归一化概率
-        print(images.shape)
         outputs = model(images)
         # 得到损失函数
         loss = criterion(outputs, targets)
@@ -69,7 +68,6 @@ if __name__ == '__main__':
     transfer_ratio = 1e-2
     model = TVit('B_16', img_size=224, backbone_embedding=768, count_classes=10)
     model.to(device)
-    print("pretrained model loaded")
     state_dict = model.state_dict()
     del state_dict['classifier.weight']
     fine_tuned_params = []
