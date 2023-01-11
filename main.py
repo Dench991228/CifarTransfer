@@ -82,6 +82,6 @@ if __name__ == '__main__':
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, eta_min=2e-4, T_max=60)
     criterion = nn.CrossEntropyLoss()
     for id in range(60):
-        print(f"Epoch {id}")
+        log_file.write(f"Epoch {id}")
         train_one_epoch(model, criterion, optimizer, get_train_loader(args.dataset))
         test(model, criterion, get_test_loader(args.dataset))
