@@ -11,7 +11,7 @@ args = argparse.ArgumentParser(description="Transferring ViT to CIFAR10 or CIFAR
 args.add_argument("--dataset", default='cifar10')
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 log_file = open("log.txt", 'w')
-
+best_acc = 0
 
 def train_one_epoch(model, criterion, optimizer, train_loader):
     avg_loss = 0
@@ -43,7 +43,7 @@ def train_one_epoch(model, criterion, optimizer, train_loader):
     log_file.write(f"train acc: {avg_correct}\n")
 
 
-def test(model, criterion, test_loader):
+def test(model, criterion, test_loader, current_epoch):
     loss = 0
     correct = 0
     wrong = 0
@@ -61,6 +61,13 @@ def test(model, criterion, test_loader):
     avg_correct = correct / (wrong+correct)
     log_file.write(f"test loss: {avg_loss}\n")
     log_file.write(f"test acc: {avg_correct}\n")
+    global best_acc
+    if avg_correct > best_acc:
+        best_acc = avg_correct
+        state = {'state_dict': model.state_dict(),
+                 'current_epoch': current_epoch,
+                 'acc': avg_correct}
+        torch.save(state, f"checkpoint.pth.tar")
 
 
 if __name__ == '__main__':
