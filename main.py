@@ -34,7 +34,7 @@ def train_one_epoch(model, criterion, optimizer, train_loader):
         batch_wrong = ((predicts != targets).sum())
         count_correct += batch_correct
         count_wrong += batch_wrong
-        print(f"Batch {idx}, correct {batch_correct}, wrong {count_wrong}, loss {loss}")
+        print(f"Batch {idx}, correct {batch_correct}, wrong {batch_wrong}, loss {loss}")
     avg_loss /= len(train_loader)
     avg_correct = count_correct / (count_wrong + count_correct)
     print(f"train loss: {avg_loss}")
