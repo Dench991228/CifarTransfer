@@ -58,7 +58,7 @@ def test(model, criterion, test_loader, current_epoch):
             loss += batch_loss
             predicts = torch.argmax(outputs, dim=1)
             correct += ((predicts == targets).sum())
-            wrong += ((predicts == targets).sum())
+            wrong += ((predicts != targets).sum())
     avg_loss = loss/len(test_loader)
     avg_correct = correct / (wrong+correct)
     log_file.write(f"test loss: {avg_loss}\n")
