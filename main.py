@@ -78,7 +78,7 @@ if __name__ == '__main__':
     test_loader = get_test_loader(args.dataset)
     learning_rate = 1e-1
     transfer_ratio = 1e-2
-    model = TVit('B_16', img_size=112, backbone_embedding=768, count_classes=10)
+    model = TVit('B_16', img_size=112, backbone_embedding=768, count_classes=10 if args.dataset == 'cifar10' else 100)
     model.to(device)
     state_dict = model.state_dict()
     del state_dict['classifier.weight']
