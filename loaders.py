@@ -20,7 +20,6 @@ test_transform = transforms.Compose([
 
 def get_train_set(name):
     """获取一个数据集的dataset"""
-    datasets.celeba.CelebA()
     if name == 'cifar10':
         train_set = datasets.CIFAR10(root='./data', train=True, download=True, transform=train_transform)
     else:
